@@ -1,35 +1,37 @@
-const skills = [
-  {
-    title: "Web Development",
-    description:
-      "Responsive and modern web applications built using React, Next.js and Tailwind CSS with clean, reusable components."
-  },
-  
-  {
-    title: "Mobile Development",
-    description:
-      "Cross-platform mobile applications with Flutter and React Native, integrated with Firebase services."
-  },
-  {
-    title: "Backend Development",
-    description:
-      "REST APIs, authentication, database design and scalable server-side applications using NestJS and Express."
-  },
-  {
-    title: "Database Management",
-    description:
-      "Designing relational and NoSQL databases using PostgreSQL, MySQL and Firestore."
-  },
-  {
-    title: "UI/UX Design",
-    description:
-      "Wireframes and prototypes in Figma and Canva, built around usability and visual consistency before code starts."
-  },
-  {
-    title: "Collaboration",
-    description:
-      "Academic project coordination, clear written/verbal communication, and staying organized across a full team build."
-  }
-];
+export const skillCategories = {
+  languages: [
+    { name: 'JavaScript (ES6+)', percentage: '85%' },
+    { name: 'Dart', percentage: '80%' },
+    { name: 'C++', percentage: '75%' },
+    { name: 'SQL', percentage: '80%' }
+  ],
+  frameworks: [
+    { name: 'Flutter', percentage: '85%' },
+    { name: 'React', percentage: '80%' },
+    { name: 'NestJS', percentage: '70%' },
+    { name: 'Express.js & Node.js', percentage: '75%' },
+    { name: 'React Native', percentage: '65%' }
+  ],
+  databases: [
+    { name: 'MySQL', percentage: '80%' },
+    { name: 'PostgreSQL', percentage: '75%' },
+    { name: 'MongoDB', percentage: '70%' },
+    { name: 'Firebase Firestore', percentage: '85%' }
+  ],
+  tools: [
+    { name: 'Git & GitHub', percentage: '85%' },
+    { name: 'Postman', percentage: '80%' },
+    { name: 'Figma / Canva', percentage: '75%' },
+    { name: 'REST APIs & Provider', percentage: '80%' },
+    { name: 'Linux Environment', percentage: '70%' }
+  ]
+};
 
-export default skills;
+export const academicCourses = [
+  'Data Structures & Algorithms',
+  'Database Systems',
+  'Mobile Application Development',
+  'Web Engineering',
+  'Artificial Intelligence',
+  'Software Quality Engineering'
+];

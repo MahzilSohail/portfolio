@@ -1,29 +1,119 @@
-import Background from "@/components/Lyout/Background";
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero/Hero";
-import About from "@/components/About/About";
-import Skills from "@/components/Skills/Skills";
-import TechnicalSkills from "@/components/TechnicalSkills/TechnicalSkills";
-import Experience from "@/components/Experience/Experience";
-import Projects from "@/components/Projects/Projects";
-import Education from "@/components/Education/Education";
-import Contact from "@/components/Contact/Contact";
-import Footer from "@/components/Footer";
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import About from '../components/About';
+import Skills from '../components/Skills';
+import Experience from '../components/Experience';
+import Projects from '../components/Projects';
+import Achievements from '../components/Achievements';
+import Testimonials from '../components/Testimonials';
+import Contact from '../components/Contact';
+import { ArrowUp, Mail } from 'lucide-react';
 
 export default function Home() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    // 1. Scroll-to-top visibility toggle
+    const handleScrollVisibility = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScrollVisibility);
+
+    // 2. Intersection Observer scroll animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.1
+    };
+
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const animateSelectors = [
+      '.section-header',
+      '.timeline-item',
+      '.experience-card',
+      '.skill-item',
+      '.project-card',
+      '.achievement-card',
+      '.contact-info',
+      '.contact-form-container'
+    ];
+
+    const elementsToAnimate = document.querySelectorAll(animateSelectors.join(', '));
+    elementsToAnimate.forEach(el => {
+      el.classList.add('fade-in-up-trigger');
+      scrollObserver.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollVisibility);
+      scrollObserver.disconnect();
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <>
-      <Background />
       <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <TechnicalSkills />
-      <Experience />
-      <Projects />
-      <Education />
-      <Contact />
-      <Footer />
+      <main>
+        <Hero />
+        <About />
+        <Projects />
+        <Skills />
+        <Experience />
+        <Achievements />
+        <Testimonials />
+        <Contact />
+      </main>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-container">
+          <p className="footer-copy">
+            &copy; 2026 Mahzil Sohail. Built with react brain, shipped by hand.
+          </p>
+          <div className="footer-socials">
+            <a href="https://github.com/MahzilSohail" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49v-1.87c-2.78.62-3.37-1.37-3.37-1.37-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.58 2.35 1.12 2.92.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.2 9.2 0 0 1 12 6.8c.85 0 1.7.12 2.5.36 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.95.68 1.92v2.84c0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z" />
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/mahzil-sohail-02412b371/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V8.99h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.37 4.28 5.46v6.29zM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.54 20.45H7.1V8.99H3.54v11.46z" />
+              </svg>
+            </a>
+            <a href="mailto:mahzilsohail1@gmail.com" aria-label="Email">
+              <Mail className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      {/* Scroll to Top */}
+      <button
+        onClick={scrollToTop}
+        className={`scroll-top-btn ${showScrollTop ? 'visible' : ''}`}
+        aria-label="Scroll to top"
+      >
+        <ArrowUp className="w-5 h-5" />
+      </button>
     </>
   );
 }
