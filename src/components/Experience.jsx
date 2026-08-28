@@ -26,7 +26,6 @@ export default function Experience() {
                   {exp.bullets.map((bullet, bIdx) => (
                     <li key={bIdx}>
                       <CheckCircle className="bullet-icon w-5 h-5 flex-shrink-0" />
-                      {/* Using dangerouslySetInnerHTML to support <strong> tags from data if any */}
                       <span dangerouslySetInnerHTML={{ __html: bullet }} />
                     </li>
                   ))}

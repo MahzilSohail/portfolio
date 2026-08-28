@@ -6,7 +6,6 @@ import { ArrowRight, Mail, Phone } from 'lucide-react';
 export default function Hero() {
   return (
     <section className="hero" id="home">
-      {/* Background glow elements */}
       <div className="glow-bg">
         <div className="glow-sphere glow-1"></div>
         <div className="glow-sphere glow-2"></div>

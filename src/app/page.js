@@ -16,13 +16,12 @@ export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
-    // 1. Scroll-to-top visibility toggle
     const handleScrollVisibility = () => {
       setShowScrollTop(window.scrollY > 400);
     };
     window.addEventListener('scroll', handleScrollVisibility);
 
-    // 2. Intersection Observer scroll animations
+    
     const observerOptions = {
       root: null,
       rootMargin: '0px 0px -60px 0px',
@@ -106,7 +105,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Scroll to Top */}
       <button
         onClick={scrollToTop}
         className={`scroll-top-btn ${showScrollTop ? 'visible' : ''}`}

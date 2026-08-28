@@ -63,7 +63,6 @@ export default function Projects() {
         ))}
       </div>
 
-      {/* Grid */}
       <div className="projects-grid" id="projectsGrid">
         {filteredProjects.map((project) => (
           <article key={project.id} className="project-card">
@@ -114,24 +113,23 @@ export default function Projects() {
         </a>
       </div>
 
-      {/* Modal Detail Overlay */}
       {selectedProject && (
         <div
           className="modal-overlay active"
           onClick={() => {
             setSelectedProject(null);
-            document.body.style.overflow = ''; // Unlock scroll
+            document.body.style.overflow = '';
           }}
         >
           <div
             className="modal-card"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking card itself
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               className="modal-close-btn"
               onClick={() => {
                 setSelectedProject(null);
-                document.body.style.overflow = ''; // Unlock scroll
+                document.body.style.overflow = ''; 
               }}
               aria-label="Close Modal"
             >

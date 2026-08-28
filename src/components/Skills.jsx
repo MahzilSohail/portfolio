@@ -8,7 +8,6 @@ export default function Skills() {
   const [activeTab, setActiveTab] = useState('languages');
   const [animate, setAnimate] = useState(true);
 
-  // Trigger animations on tab change
   useEffect(() => {
     setAnimate(false);
     const timer = setTimeout(() => {

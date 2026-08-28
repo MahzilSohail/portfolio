@@ -61,7 +61,6 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate all fields
     const newErrors = {};
     let hasError = false;
     Object.keys(formData).forEach((key) => {

@@ -10,11 +10,9 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    // 1. Sticky Header
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Simple active link highlight on scroll
       const sections = ['home', 'about', 'projects', 'skills', 'experience', 'achievements', 'testimonials', 'contact'];
       for (const section of sections) {
         const el = document.getElementById(section);
@@ -28,8 +26,6 @@ export default function Navbar() {
       }
     };
     window.addEventListener('scroll', handleScroll);
-
-    // 2. Theme Initialization
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
