@@ -2,7 +2,8 @@ export const skillCategories = {
   languages: [
     { name: 'JavaScript (ES6+)', percentage: '85%' },
     { name: 'Dart', percentage: '80%' },
-    { name: 'C++', percentage: '75%' },
+    { name: 'C++', percentage: '86%' },
+    { name: 'Python', percentage: '65%' },
     { name: 'SQL', percentage: '80%' }
   ],
   frameworks: [

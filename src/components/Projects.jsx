@@ -2,17 +2,34 @@
 
 import React, { useState, useEffect } from 'react';
 import { projects } from '../data/projects';
-import { ChevronRight, X, Info, User, Award, Smartphone, Shield, Bed, Book, Cpu, BarChart2 } from 'lucide-react';
+import Card3D from './3d/Card3D';
+import {
+  ChevronRight,
+  X,
+  ExternalLink,
+  Sparkles,
+  Smartphone,
+  Shield,
+  Bed,
+  Book,
+  Cpu,
+  BarChart2,
+  CheckCircle,
+  Layers,
+  Award
+} from 'lucide-react';
+import { GithubIcon } from './icons/BrandIcons';
+import { cyberAudio } from '../lib/cyberAudio';
 
 export default function Projects() {
   const [filter, setFilter] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Close modal on escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setSelectedProject(null);
+        document.body.style.overflow = '';
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -21,149 +38,234 @@ export default function Projects() {
 
   const getProjectIcon = (iconName) => {
     switch (iconName) {
-      case 'smartphone': return <Smartphone className="w-5 h-5" />;
-      case 'shield': return <Shield className="w-5 h-5" />;
-      case 'bed': return <Bed className="w-5 h-5" />;
-      case 'book': return <Book className="w-5 h-5" />;
-      case 'cpu': return <Cpu className="w-5 h-5" />;
-      case 'bar-chart': return <BarChart2 className="w-5 h-5" />;
-      default: return <Info className="w-5 h-5" />;
+      case 'smartphone': return <Smartphone className="w-5 h-5 text-cyan-400" />;
+      case 'shield': return <Shield className="w-5 h-5 text-indigo-400" />;
+      case 'bed': return <Bed className="w-5 h-5 text-sky-400" />;
+      case 'book': return <Book className="w-5 h-5 text-amber-400" />;
+      case 'cpu': return <Cpu className="w-5 h-5 text-pink-400" />;
+      case 'bar-chart': return <BarChart2 className="w-5 h-5 text-emerald-400" />;
+      default: return <Sparkles className="w-5 h-5 text-cyan-400" />;
     }
   };
 
+  const filters = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'mobile', label: 'Mobile Apps (Flutter)' },
+    { id: 'web', label: 'Full-Stack Web' },
+    { id: 'ai-other', label: 'AI & Core Systems' }
+  ];
+
   const filteredProjects = filter === 'all'
     ? projects
-    : projects.filter(p => p.category === filter);
+    : projects.filter((p) => p.category === filter);
 
-  const filters = [
-    { id: 'all', label: 'All' },
-    { id: 'mobile', label: 'Mobile Apps' },
-    { id: 'web', label: 'Web Development' },
-    { id: 'ai-other', label: 'AI & Systems' }
-  ];
+  const openProjectModal = (proj) => {
+    cyberAudio?.playWarp();
+    setSelectedProject(proj);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeProjectModal = () => {
+    cyberAudio?.playClick();
+    setSelectedProject(null);
+    document.body.style.overflow = '';
+  };
 
   return (
     <section className="projects section-padding bg-alt" id="projects">
       <div className="section-header">
-        <span className="sub-title">My Works</span>
-        <h2 className="section-title">Featured Projects</h2>
+        <span className="sub-title">Portfolio Showcase</span>
+        <h2 className="section-title">Featured Engineering Projects</h2>
         <div className="section-line"></div>
       </div>
 
-      {/* Filters */}
+      {/* Filter Tabs */}
       <div className="project-filters">
-        {filters.map(f => (
+        {filters.map((f) => (
           <button
             key={f.id}
             className={`filter-btn ${filter === f.id ? 'active' : ''}`}
-            onClick={() => setFilter(f.id)}
+            onClick={() => {
+              cyberAudio?.playClick();
+              setFilter(f.id);
+            }}
           >
             {f.label}
           </button>
         ))}
       </div>
 
+      {/* 3D Projects Grid */}
       <div className="projects-grid" id="projectsGrid">
         {filteredProjects.map((project) => (
-          <article key={project.id} className="project-card">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-github"
-              aria-label={`View ${project.title} on GitHub`}
-            >
-              <svg className="github-icon w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.58 2 12.24c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49v-1.87c-2.78.62-3.37-1.37-3.37-1.37-.46-1.2-1.11-1.52-1.11-1.52-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.58 2.35 1.12 2.92.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.2 9.2 0 0 1 12 6.8c.85 0 1.7.12 2.5.36 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.95.68 1.92v2.84c0 .27.18.59.69.49A10.25 10.25 0 0 0 22 12.24C22 6.58 17.52 2 12 2Z" />
-              </svg>
-            </a>
-            <div className="project-card-header">
-              <span className="project-tag">{project.tag}</span>
-              <h3 className="project-title">{project.title}</h3>
-            </div>
-            <p className="project-short-desc">{project.shortDesc}</p>
-            <div className="project-card-tech">
-              {project.tech.slice(0, 3).map((t, idx) => (
-                <span key={idx}>{t}</span>
-              ))}
-            </div>
-            <button
-              onClick={() => {
-                setSelectedProject(project);
-                document.body.style.overflow = 'hidden'; // Lock scroll
-              }}
-              className="btn-project-detail"
-            >
-              View Details <ChevronRight className="w-4 h-4 ml-1 inline" />
-            </button>
-          </article>
+          <Card3D
+            key={project.id}
+            className="project-card-wrapper"
+            maxRotation={10}
+            scale={1.02}
+          >
+            <article className="project-card">
+              {/* Card Top Action Row */}
+              <div className="project-card-top">
+                <div className="project-icon-badge">
+                  {getProjectIcon(project.icon)}
+                </div>
+                <div className="project-top-links">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-github-btn"
+                    title={`View ${project.title} on GitHub`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      cyberAudio?.playClick();
+                    }}
+                    aria-label={`GitHub repo for ${project.title}`}
+                  >
+                    <GithubIcon className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Tag & Title */}
+              <div className="project-card-header">
+                <span className="project-tag">{project.tag}</span>
+                <h3 className="project-title">{project.title}</h3>
+              </div>
+
+              {/* Short description */}
+              <p className="project-short-desc">{project.shortDesc}</p>
+
+              {/* Tech stack chips */}
+              <div className="project-card-tech">
+                {project.tech.map((t, idx) => (
+                  <span key={idx} className="tech-badge">
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              {/* Footer Button */}
+              <div className="project-card-footer">
+                <button
+                  onClick={() => openProjectModal(project)}
+                  className="btn-project-detail"
+                >
+                  <span>System Architecture</span>
+                  <ChevronRight className="w-4 h-4 btn-detail-arrow" />
+                </button>
+              </div>
+            </article>
+          </Card3D>
         ))}
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3.5rem' }}>
+      {/* GitHub Callout Button */}
+      <div className="projects-cta-box">
         <a
           href="https://github.com/MahzilSohail"
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-primary"
-          style={{ gap: '0.5rem' }}
+          onClick={() => cyberAudio?.playSuccess()}
         >
-          <span>For more Visit</span>
+          <GithubIcon className="w-5 h-5" />
+          <span>Explore All Repositories on GitHub</span>
           <ChevronRight className="w-5 h-5" />
         </a>
       </div>
 
+      {/* Deep-Dive Project Modal */}
       {selectedProject && (
-        <div
-          className="modal-overlay active"
-          onClick={() => {
-            setSelectedProject(null);
-            document.body.style.overflow = '';
-          }}
-        >
+        <div className="modal-overlay active" onClick={closeProjectModal}>
           <div
             className="modal-card"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              className="modal-close-btn"
-              onClick={() => {
-                setSelectedProject(null);
-                document.body.style.overflow = ''; 
-              }}
-              aria-label="Close Modal"
-            >
-              <X className="w-6 h-6" />
-            </button>
+            {/* Modal Header Bar */}
+            <div className="modal-top-bar">
+              <div className="modal-top-title">
+                {getProjectIcon(selectedProject.icon)}
+                <span>{selectedProject.title} • System Blueprint</span>
+              </div>
+              <button
+                className="modal-close-btn"
+                onClick={closeProjectModal}
+                aria-label="Close Modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
             <div className="modal-body">
-              <span className="modal-tag">{selectedProject.tag}</span>
-              <h3 className="modal-title">{selectedProject.title}</h3>
-
-              <div className="modal-tech-list">
-                {selectedProject.tech.map((t, idx) => (
-                  <span key={idx}>{t}</span>
-                ))}
+              <div className="modal-banner">
+                <span className="modal-tag">{selectedProject.tag}</span>
+                <h3 className="modal-title">{selectedProject.title}</h3>
+                <p className="modal-short">{selectedProject.shortDesc}</p>
               </div>
 
-              <div className="modal-detail-section">
-                <h4>
-                  {getProjectIcon(selectedProject.icon)} Project Description
+              {/* Tech Stack Chips */}
+              <div className="modal-section">
+                <h4 className="modal-sec-title">
+                  <Layers className="w-4 h-4 text-cyan-400 inline mr-1.5" />
+                  Technologies &amp; Architecture Layers
                 </h4>
-                <p>{selectedProject.description}</p>
+                <div className="modal-tech-list">
+                  {selectedProject.tech.map((t, idx) => (
+                    <span key={idx} className="modal-tech-pill">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              <div className="modal-detail-section">
-                <h4>
-                  <User className="w-5 h-5 inline-block mr-1" /> My Role & Contributions
+              {/* Deep Details */}
+              <div className="modal-section">
+                <h4 className="modal-sec-title">
+                  <Sparkles className="w-4 h-4 text-cyan-400 inline mr-1.5" />
+                  System Overview &amp; Implementation
                 </h4>
-                <p>{selectedProject.role}</p>
+                <p className="modal-text-content">{selectedProject.description}</p>
               </div>
 
-              <div className="modal-detail-section">
-                <h4>
-                  <Award className="w-5 h-5 inline-block mr-1" /> Project Outcomes & Value
+              {/* Role & Contributions */}
+              <div className="modal-section">
+                <h4 className="modal-sec-title">
+                  <CheckCircle className="w-4 h-4 text-cyan-400 inline mr-1.5" />
+                  Engineering Role &amp; Contributions
                 </h4>
-                <p>{selectedProject.outcomes}</p>
+                <p className="modal-text-content">{selectedProject.role}</p>
+              </div>
+
+              {/* Outcomes & Impact */}
+              <div className="modal-section">
+                <h4 className="modal-sec-title">
+                  <Award className="w-4 h-4 text-cyan-400 inline mr-1.5" />
+                  Performance Outcomes &amp; Engineering Value
+                </h4>
+                <p className="modal-text-content">{selectedProject.outcomes}</p>
+              </div>
+
+              {/* Modal Actions */}
+              <div className="modal-actions-row">
+                <a
+                  href={selectedProject.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                  onClick={() => cyberAudio?.playSuccess()}
+                >
+                  <GithubIcon className="w-5 h-5" />
+                  <span>View Repository on GitHub</span>
+                  <ExternalLink className="w-4 h-4 ml-1" />
+                </a>
+                <button
+                  onClick={closeProjectModal}
+                  className="btn btn-secondary"
+                >
+                  Close Blueprint
+                </button>
               </div>
             </div>
           </div>

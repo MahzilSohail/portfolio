@@ -1,5 +1,18 @@
 export const experiences = [
   {
+    role: 'Full Stack Development',
+    company: 'Progree',
+    type: 'Virtual Internship',
+    date: 'August 2026 - September 2026',
+    certificateLink: '/certificates/Certificate_Progree.png', // Placeholder path or adapt to what they have
+    bullets: [
+      'Developed and maintained responsive full-stack web applications using modern frontend and backend technologies.',
+      'Built reusable UI components and integrated REST APIs for dynamic and scalable web experiences.',
+      'Worked with databases, authentication, server-side logic, and API integration to deliver complete web solutions.',
+      'Collaborated with the development team to debug issues, improve performance, and implement new features.'
+    ]
+  },
+  {
     role: 'Web Development & Designing Intern',
     company: 'Oasis Infobyte',
     type: 'Virtual Internship',
