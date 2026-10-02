@@ -40,7 +40,7 @@ export default function Skills() {
 
   const getCourseIcon = (courseName) => {
     const name = courseName.toLowerCase();
-    if (name.includes('data structure') || name.includes('algorithm')) return <BookOpen className="w-4 h-4 text-cyan-400" />;
+    if (name.includes('data structure') || name.includes('algorithm')) return <BookOpen className="w-4 h-4 text-indigo-400" />;
     if (name.includes('database')) return <Database className="w-4 h-4 text-indigo-400" />;
     if (name.includes('mobile')) return <Smartphone className="w-4 h-4 text-sky-400" />;
     if (name.includes('web')) return <Globe className="w-4 h-4 text-emerald-400" />;

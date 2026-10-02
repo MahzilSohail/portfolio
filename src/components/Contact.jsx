@@ -171,7 +171,7 @@ export default function Contact() {
             <Card3D className="method-card-3d" maxRotation={6} scale={1.015}>
               <div className="method-card">
                 <div className="method-icon-box">
-                  <Mail className="w-5 h-5 text-cyan-400" />
+                  <Mail className="w-5 h-5 text-indigo-400" />
                 </div>
                 <div className="method-body">
                   <span className="method-label">Direct Email</span>
